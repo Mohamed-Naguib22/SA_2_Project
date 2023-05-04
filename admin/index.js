@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyparser = require('body-parser');
-const sequelize = require('./util/database');
 const { kafkaProducer } = require('./kafka-producer');
 
 const app = express();
@@ -31,14 +30,5 @@ app.use((error, req, res, next) => {
   const message = error.message;
   res.status(status).json({ message: message });
 });
-
-//sync database
-sequelize
-  .sync()
-  .then(result => {
-    console.log("Database connected");
-    app.listen(3000);
-  })
-  .catch(err => console.log(err));
 
 

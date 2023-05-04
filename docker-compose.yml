@@ -1,7 +1,4 @@
 version: "3.9"
-# networks:
-#   name: kafka-net
-#   driver: bridge
 
 services:
   zookeeper:
@@ -9,15 +6,12 @@ services:
     image: wurstmeister/zookeeper
     ports:
       - "2181:2181"
-    # networks:
-    #   - kafka-net
+
   kafka:
     container_name: kafka
     image: wurstmeister/kafka
     ports:
       - "9092:9092"
-    # networks:
-    #   - kafka-net
     volumes:
       - ./data/kafka:/var/run/docker.sock
     environment:
@@ -72,6 +66,4 @@ services:
       - postgres
       - kafka
       - admin
-# volumes:
-#   postgres_data: {}
 

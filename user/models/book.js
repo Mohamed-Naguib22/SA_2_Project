@@ -11,8 +11,6 @@ const Book = db.define('book', {
     name: Sequelize.STRING,
     author: Sequelize.STRING,
     method: Sequelize.STRING
-    // POST --> TRUE
-    // DELETE --> FALSE
 });
 
 module.exports = Book;
