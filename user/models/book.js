@@ -10,7 +10,7 @@ const Book = db.define('book', {
     },
     name: Sequelize.STRING,
     author: Sequelize.STRING,
-    method: Sequelize.BOOLEAN
+    method: Sequelize.STRING
     // POST --> TRUE
     // DELETE --> FALSE
 });

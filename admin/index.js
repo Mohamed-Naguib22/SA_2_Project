@@ -1,11 +1,11 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const sequelize = require('./util/database');
-const kafka = require('kafka-node');
-const controller = require('./controllers/books');
-const Book = require('./models/book');
+const { kafkaProducer } = require('./kafka-producer');
 
 const app = express();
+
+kafkaProducer(app)
 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: false }));
@@ -17,27 +17,7 @@ app.use((req, res, next) => {
 });
 
 //CRUD routes
-app.use('/books', require('./controllers/books'));
-
-const client = new kafka.KafkaClient({ kafkaHost:process.env.KAFKA_BOOTSTRAP_SERVERS });
-const producer = new kafka.Producer(client);
-
-producer.on('ready',  async () => {
-    const hello = {
-      message: 'Hello Woeld',
-    }
-    const payload = JSON.stringify(hello);
-    const messages = [{ topic: 'topic1', messages: [payload], partition: 0 }];
-    producer.send(messages, (error, data) => {
-      if (error) {
-        console.error(error);
-      }
-    });
-})
-
-producer.on('error', function (err) {
-  console.error('Error occurred:', err);
-});
+app.use('/books', require('./controllers/bookController'));
 
 //test route
 app.get('/', (req, res, next) => {
