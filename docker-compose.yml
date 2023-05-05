@@ -39,14 +39,9 @@ services:
     ports:
       - "3001:3000"
     environment:
-      - PG_DB=node_live_db
-      - PG_USER=mohamednaguib22
-      - PG_PASSWORD=12345
-      - PG_HOST=postgres
       - KAFKA_TOPIC=topic1
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     depends_on:
-      - postgres
       - kafka
 
   user:
@@ -66,4 +61,3 @@ services:
       - postgres
       - kafka
       - admin
-
